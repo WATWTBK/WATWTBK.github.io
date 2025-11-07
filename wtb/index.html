@@ -1,23 +1,33 @@
-<!DOCTYPE html>
-<html lang="th">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>วัดวังตะแบกโภคาราม</title>
+  
+  <link rel="icon" href="https://lh7-rt.googleusercontent.com/sitesz/AClOY7rsyi34IyVp2poHtSg0XBH3VB9PdrqLJej9P2Riu-JxYLuBhv6cm0GoKfW0BriHjQ9mlQYDKhhhD85e0TMSzL2QvPEEWjZb4MFfnc7OB3pCDhlteHAN8HoJhBO7gcvBFDNr9AkjgYhCX4E4aVxhprtZ2OaXbAIsrd1mgrTxCGbwOPTthdw?key=JM-XNgSVv6ay9DoBtCRKnXch" type="image/png">
+  
+  <style>
+    .responsive-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-    <h1>App Page</h1>
-    <p>This is the App route</p>
-    
-    <script>
-        // Get the 'apps' parameter from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const appsParam = urlParams.get('apps');
-        
-        // If apps parameter exists, redirect to that URL
-        if (appsParam) {
-            window.location.href = appsParam;
-        }
-    </script>
+  <div> 
+    <iframe id="myframe" class="responsive-iframe" src="" allowfullscreen=""></iframe>
+  </div>
+  <script>
+    const apps = new URL(window.location);
+    const formUrl = apps.searchParams.get('apps');
+    const url = decodeURIComponent(formUrl)
+          document.getElementById('myframe').src = url
+  </script>
+
 </body>
 </html>
