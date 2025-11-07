@@ -1,37 +1,567 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บันทึกบุญ - เข้าสู่ระบบ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+        .luxury-gradient {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #7209b7 100%);
+        }
+        .glass-luxury {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+        .gold-accent {
+            background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff8c00 100%);
+        }
+        .floating {
+            animation: float 8s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+        .luxury-glow {
+            animation: luxuryGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes luxuryGlow {
+            from { box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), 0 0 60px rgba(255, 215, 0, 0.1); }
+            to { box-shadow: 0 0 50px rgba(255, 215, 0, 0.5), 0 0 80px rgba(255, 215, 0, 0.2); }
+        }
+        .btn-luxury {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-luxury:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.08) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.6);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+        }
+        .diamond {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #ffd700, #ffffff, #ffd700);
+            transform: rotate(45deg);
+            animation: sparkle 4s linear infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: rotate(45deg) scale(0); }
+            50% { opacity: 1; transform: rotate(45deg) scale(1); }
+        }
+        .luxury-text {
+            background: linear-gradient(135deg, #ffd700 0%, #ffffff 50%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .popup-luxury {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+        }
+        .form-luxury {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+    </style>
+</head>
+<body class="luxury-gradient min-h-screen flex flex-col relative overflow-hidden">
+    <!-- Luxury Decorative Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="diamond" style="top: 15%; left: 8%; animation-delay: 0s;"></div>
+        <div class="diamond" style="top: 25%; left: 85%; animation-delay: 1.5s;"></div>
+        <div class="diamond" style="top: 65%; left: 12%; animation-delay: 3s;"></div>
+        <div class="diamond" style="top: 80%; left: 75%; animation-delay: 2s;"></div>
+        <div class="diamond" style="top: 35%; left: 90%; animation-delay: 0.8s;"></div>
+        <div class="diamond" style="top: 10%; left: 60%; animation-delay: 2.5s;"></div>
+    </div>
 
-<!DOCTYPE html><html dir="ltr" lang="th-TH" class="theme light classic"><head><base href="/"><meta charset="utf-8"><title>บันทึกข้อมูลทำบุญที่วัดวังตะแบกโภคาราม</title><meta name="app-name" content="export_website"/><meta name="viewport" content="width=device-width, initial-scale=1"><link href="_assets/a0684b0780c739e9.vendor.ltr.css" rel="stylesheet" integrity="sha512-JwMCpiHdk95MoUTatfaZJwstzeDnWfvWMJiwnSxZfPmgeCe4yvQDQ+ONMQjIy/Ht72r0TmlE+gvZnYRnpdLdVg==" crossorigin="anonymous"><link href="_assets/7ac71292b0338181.ltr.css" rel="stylesheet" integrity="sha512-CNjpjurmF92vnelo7gOBmu+jan0OutxW1ift4wVMAIMvl01lNQOB8ubqa7wNy/Xij/jjPjXU/M1Sae0hdHk2Qg==" crossorigin="anonymous"><link href="_assets/static_font_4.ltr.css" rel="stylesheet"><link href="_assets/e67d78963e749d2a.runtime.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-YaW+QLF5SrwA9jIvL3qCtz+M84bXymZZVb5R3+xqXTn85Xg4GLOYzcWxWgZEty1tpjhs2WqWFEJOPL4ZgL2H7A==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"><link href="_assets/cf68917d6890325b.s4le6a.vendor.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-SJ+tDm3qg75UuGAMkHJ7/4YYCNG88SULa7n9TwaOICxd4LIJ2mUD5fX35I7erTvo9zZXNzRw82f/bOhaPd0sgg==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"><link href="_assets/bcd85ba81e774b9a.vendor.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-urdVzaiFhYXlZts++rOJQLg0DYqJh6GTeXnpJLmupBjeTc2HGScvRzBk4MmjdQRZWtfTEQzXG5WvhxL/Pqv9yQ==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"><link href="_assets/3812dcd77c397e59.strings.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-jm9sRXoFYVrn04EljtVm7hbOVSjzafCAfNduZ9au0nP+xmZbXW+e32Vu/yorPFrMGG8Oa3/4JOwFmE8a9ibTRw==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"><link href="_assets/8d68b490c38f9500.th-TH.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-YpGPreK0MwZW3UqUiNgJCA0Vl1VbNrWFbkCa8fDlTuUiEP8GgWQ7xI2h04Ze/5T0wZ2mNviWuDdKOVj/FaMv4A==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"><link href="_assets/b1a78e375ddd617b.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-ffGuSTvD7lEcRMK/uXw+GGOZGHUpk/mL1F1AfX8us11aJQO+iY1NnSr6qW822IjW3/LfxOWG84a4FYHgyX1R8A==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"><meta name="referrer" content="strict-origin-when-cross-origin"><meta property="og:title" content="บันทึกข้อมูลทำบุญที่วัดวังตะแบกโภคาราม"><meta property="og:type" content="website"><link rel="shortcut icon" href="_assets/images/b82c2a8bbfcf08561f1ab6c4c4d22fc9.png"><link rel="icon" href="_assets/images/aea5f0874fd0096b62bb6d272243b4dc.png" sizes="192x192"><link rel="apple-touch-icon" href="_assets/images/2016d3763cfe06e94ea379f7de2ea291.png" sizes="180x180"><script nonce="09d8060d-52d8-4807-bb0f-838061b651c4">window['__canva_website_bootstrap__'] = JSON.parse('{"A":"DAGqhIvGoBQ","B":"eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwia2lkIjoia2lkLTE3NDAwODM2MjAyNzEifQ..p5onG3Rj94sJ7piE.KP3oytKOBG_bTL6h_mmxMZhQ3vzJr1JEYkdsSfwVKy-0bH69huHp7Vk4tHz__mFXsUT58yDyHw.yCdt-7tLlS41IJ4Qvk9ajg"}');</script><script nonce="09d8060d-52d8-4807-bb0f-838061b651c4">
-      document.addEventListener('contextmenu', (e) => {
-        const isMedia = ['img', 'image', 'video', 'svg', 'picture'].some(
-          tagName => tagName.localeCompare(e.target.tagName, undefined, { sensitivity: 'base' }) === 0,
-        );
-        isMedia && e.preventDefault();
-      });
-    </script><script nonce="09d8060d-52d8-4807-bb0f-838061b651c4">
-  const lang = navigator.language ? navigator.language : 'en';
-  window.canva_installFooter = (container) => {
-    if (!(container instanceof HTMLDivElement)) {
-      return;
-    }
-    fetch('_footer?lang=' + encodeURIComponent(lang)).then(response => {
-      if (response.status !== 200) {
-        return;
-      }
-      response.text().then(footerStr => {
-        container.innerHTML = '';
-        const div = document.createElement('div');
-        div.innerHTML = footerStr;
-        for (const child of [...div.children]) {
-          if (child.tagName.toLowerCase() !== 'script') {
-            container.append(child);
-          }
+    <!-- Elegant Header -->
+    <header class="text-center py-6 relative z-10">
+        <h1 class="text-3xl md:text-4xl font-bold luxury-text mb-3 drop-shadow-2xl flex items-center justify-center gap-3">
+            <div class="floating">
+                <div class="w-14 h-14 gold-accent rounded-full flex items-center justify-center shadow-2xl luxury-glow">
+                    <span class="text-2xl">🙏</span>
+                </div>
+            </div>
+            บันทึกบุญ
+        </h1>
+        <p class="text-white/90 text-lg md:text-xl font-light drop-shadow-lg mb-2">
+            ระบบจัดการการทำบุญออนไลน์
+        </p>
+        <div class="text-amber-200 text-sm font-light">
+            ✨ เริ่มต้นการเดินทางแห่งบุญกุศลอันศักดิ์สิทธิ์ ✨
+        </div>
+    </header>
+
+    <!-- Luxury Main Content -->
+    <main class="flex-1 flex items-start justify-center px-6 relative z-10 mt-8">
+        <div class="glass-luxury rounded-3xl p-6 md:p-8 max-w-lg w-full text-center shadow-2xl">
+            <div class="mb-6">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 via-indigo-500 to-blue-600 rounded-full flex items-center justify-center shadow-xl floating">
+                    <span class="text-3xl">💎</span>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3 drop-shadow-lg">ยินดีต้อนรับสู่</h2>
+                <h3 class="text-xl luxury-text font-semibold mb-3">โลกแห่งบุญกุศล</h3>
+                <p class="text-white/80 text-base leading-relaxed">
+                    เข้าสู่ระบบเพื่อเริ่มต้นการบันทึกบุญของคุณ<br>
+                    <span class="text-amber-200 font-light">และร่วมสร้างความดีงามไปด้วยกัน</span>
+                </p>
+            </div>
+
+            <div class="space-y-3 max-w-sm mx-auto">
+                <button onclick="showLoginPopup()" class="group btn-luxury rounded-lg p-3 w-full transition-all duration-400">
+                    <div class="flex items-center justify-center gap-3">
+                        <div class="text-xl group-hover:scale-110 transition-transform duration-300">👑</div>
+                        <div class="text-base font-bold text-white">ลงชื่อเข้าใช้</div>
+                    </div>
+                </button>
+                
+                <button onclick="showRegisterPopup()" class="group btn-luxury rounded-lg p-3 w-full transition-all duration-400">
+                    <div class="flex items-center justify-center gap-3">
+                        <div class="text-xl group-hover:scale-110 transition-transform duration-300">⭐</div>
+                        <div class="text-base font-bold text-white">สมัครสมาชิก</div>
+                    </div>
+                </button>
+            </div>
+
+            <div class="mt-6 text-amber-200/80 text-sm font-light text-center">
+                💫 ร่วมสร้างโลกแห่งความดีงามไปด้วยกัน 💫
+            </div>
+        </div>
+    </main>
+
+    <!-- Luxury Login Popup -->
+    <div id="loginPopup" class="fixed inset-0 popup-luxury hidden items-center justify-center z-50 p-4">
+        <div class="form-luxury rounded-3xl p-12 max-w-lg w-full relative shadow-2xl border border-amber-500/20">
+            <button onclick="closePopup('loginPopup')" class="absolute top-6 right-6 text-amber-200 hover:text-white text-4xl transition-colors">&times;</button>
+            
+            <div class="text-center mb-10 -mt-6">
+                <div class="w-20 h-20 mx-auto mb-6 gold-accent rounded-full flex items-center justify-center luxury-glow">
+                    <span class="text-4xl text-white">👑</span>
+                </div>
+                <h3 class="text-3xl font-bold luxury-text mb-2 mt-8" style="line-height: 1.3;">ลงชื่อเข้าใช้</h3>
+                <p class="text-white/80 text-lg">กรอกข้อมูลเพื่อเข้าสู่ระบบ</p>
+            </div>
+
+            <form id="loginForm" class="space-y-8">
+                <div>
+                    <label class="block text-amber-200 font-semibold mb-4 text-lg">ชื่อผู้ใช้</label>
+                    <input type="text" id="loginUsername" class="w-full px-6 py-4 bg-white/10 border-2 border-amber-500/30 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all text-white placeholder-white/50" placeholder="กรอกชื่อผู้ใช้" required>
+                </div>
+                <div>
+                    <label class="block text-amber-200 font-semibold mb-4 text-lg">รหัสผ่าน</label>
+                    <input type="password" id="loginPassword" class="w-full px-6 py-4 bg-white/10 border-2 border-amber-500/30 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all text-white placeholder-white/50" placeholder="กรอกรหัสผ่าน" required>
+                </div>
+                <div id="loginError" class="text-red-400 text-sm hidden"></div>
+                <button type="submit" class="w-full gold-accent text-white font-bold py-5 px-8 rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg">
+                    เข้าสู่ระบบ
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Luxury Register Popup -->
+    <div id="registerPopup" class="fixed inset-0 popup-luxury hidden items-center justify-center z-50 p-4">
+        <div class="form-luxury rounded-3xl p-12 max-w-lg w-full relative shadow-2xl border border-amber-500/20">
+            <button onclick="closePopup('registerPopup')" class="absolute top-6 right-6 text-amber-200 hover:text-white text-4xl transition-colors">&times;</button>
+            
+            <div class="text-center mb-10">
+                <div class="w-24 h-24 mx-auto mb-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center luxury-glow">
+                    <span class="text-4xl text-white">⭐</span>
+                </div>
+                <h3 class="text-4xl font-bold luxury-text mb-4">สมัครสมาชิก</h3>
+                <p class="text-white/80 text-lg">สร้างบัญชีใหม่เพื่อเริ่มใช้งาน</p>
+            </div>
+
+            <form id="registerForm" class="space-y-8">
+                <div>
+                    <label class="block text-amber-200 font-semibold mb-4 text-lg">รหัสผ่านพิเศษ</label>
+                    <input type="password" id="specialPassword" class="w-full px-6 py-4 bg-white/10 border-2 border-amber-500/30 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all text-white placeholder-white/50" placeholder="กรอกรหัสผ่านพิเศษเพื่อสมัครสมาชิก" required>
+                    <p class="text-sm text-amber-200/70 mt-3">🔐 ต้องมีรหัสผ่านพิเศษเพื่อสมัครสมาชิก</p>
+                </div>
+                <div id="userFields" class="space-y-8 hidden">
+                    <div>
+                        <label class="block text-amber-200 font-semibold mb-4 text-lg">ชื่อผู้ใช้</label>
+                        <input type="text" id="registerUsername" class="w-full px-6 py-4 bg-white/10 border-2 border-amber-500/30 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all text-white placeholder-white/50" placeholder="กรอกชื่อผู้ใช้" required>
+                    </div>
+                    <div>
+                        <label class="block text-amber-200 font-semibold mb-4 text-lg">รหัสผ่าน</label>
+                        <input type="password" id="registerPassword" class="w-full px-6 py-4 bg-white/10 border-2 border-amber-500/30 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all text-white placeholder-white/50" placeholder="กรอกรหัสผ่าน" required>
+                    </div>
+                </div>
+                <div id="registerError" class="text-red-400 text-sm hidden"></div>
+                <button type="button" id="verifySpecialBtn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-5 px-8 rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg">
+                    ตรวจสอบรหัสผ่านพิเศษ
+                </button>
+                <button type="submit" id="registerSubmitBtn" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-5 px-8 rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg hidden">
+                    สมัครสมาชิก
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Show/Hide Popups
+        function showLoginPopup() {
+            document.getElementById('loginPopup').classList.remove('hidden');
+            document.getElementById('loginPopup').classList.add('flex');
         }
 
-        (() => { !function(){"use strict";const c="active",t="modal_backdrop",o="modal",e="form_close_initial",n="form_report",s="privacy_policy_modal",l="form_close_privacy_policy",i="report_button",d="privacy_policy_button",a=document.getElementById(t),m=document.getElementById(o),r=document.getElementById(e),u=document.getElementById(n),y=document.getElementById(s),p=document.getElementById(l),L=document.getElementById(i),_=document.getElementById(d);function f(){a.classList.remove(c),m.classList.remove(c),L.classList.remove(c),L.focus(),a.onclick=null}function k(){a.classList.remove(c),y.classList.remove(c),_.classList.remove(c),_.focus(),a.onclick=null}u.onclick=function(){const{origin:c,pathname:t}=window.location,o=c+t,e=u.dataset.reportUrl+encodeURIComponent(o);window.open(e)},r.onclick=f,L.onclick=function(){a.classList.add(c),a.onclick=f,m.classList.add(c),L.classList.add(c)},p.onclick=k,_.onclick=function(){a.classList.add(c),a.onclick=k,y.classList.add(c),_.classList.add(c)}}(); })();
-      });
-    });
-  }
-</script><script nonce="09d8060d-52d8-4807-bb0f-838061b651c4">
-    window.C_CAPTCHA_IMPLEMENTATION = 'RECAPTCHA';
-</script><script nonce="09d8060d-52d8-4807-bb0f-838061b651c4">
-    window.C_CAPTCHA_KEY = '6LdpNmIrAAAAAHQVezN3pBAfDjQQ2qUpo881f24o';
-</script></head><body><script nonce="09d8060d-52d8-4807-bb0f-838061b651c4">document.documentElement.classList.replace('adaptive', window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');</script><div id="root"></div><script nonce="09d8060d-52d8-4807-bb0f-838061b651c4">(function() {window['__canva_public_path__'] = '_assets\/'; window['bootstrap'] = JSON.parse('{"base":{"A?":"B","L":false,"N":false,"E":"59aa58f9df164142412419d73691825462417759","K":1760425698,"F":{"A?":"B"},"G":"CLIENT_FULL","I":"A","O":{"A?":"B"},"M":"/_online","U":[],"V":[],"a":{"K":"export_website","H":{}},"d":{"A":"wss://www.canva.com/_stream","B":{"F":"export_website"},"C":8388608},"b":{"A?":"H","C":{"a":"DESKTOP_APP"},"D":{"a":"DESKTOP_APP","c":"th-TH"},"E":{},"P":[],"Q":[],"R":false,"S":false}},"page":{"A":{"B":{"A?":"A","A":"TAGcbLa0hys","B":1},"C":{"A":1366.0,"B":768.0,"C":"D"},"Q":[],"R":[],"P":"th-TH","D":"บันทึกข้อมูลทำบุญที่วัดวังตะแบกโภคาราม","E":"","F":[],"G":{},"Y":{},"a":[],"b":[],"V":[],"W":[],"A":[{"A?":"j","Z":{"A?":"A","A":"TAGcbLa0hys","B":1},"a":"PBRhrngHZ1gKkLZk","B":"บันทึกข้อมูลทำบุญที่วัดวังตะแบกโภคาราม","F":"","R":false,"S":false,"U":false,"Q":{},"v":"B","t":[{"A?":"i","a":"PBN28DHYVKjLW9GK","R":false,"S":false,"U":false,"Q":{},"W":[],"X":[],"H":[],"L":{},"C":{"A":1366.0,"B":768.0,"C":"D"},"D":{"C":"#ffffff","D":0.0,"F":false,"J":false,"G":false,"H":false},"r":[],"E":[{"A?":"O","A":0.0,"B":0.0,"D":1366.0,"C":768.0,"E":0.0,"F":0.0,"BD":[],"BE":[],"BA":[],"BB":[],"Q":false,"S":false,"P":[],"5":{},"T":{},"W":{},"a":"_website-element-widget?version=v2&pageIndex=0&elementIndex=0&elementType=C&locale=th-TH","b":1366.0,"c":768.0}],"I":[]}],"u":[],"L":{}},{"A?":"j","Z":{"A?":"A","A":"TAGcbLa0hys","B":1},"a":"PB02GxKkQPg511YT","B":"วัดวังตะแบกโภคาราม","R":false,"S":false,"U":false,"Q":{},"v":"B","t":[{"A?":"i","a":"PB1HWxy7r94wpP6f","R":false,"S":false,"U":false,"Q":{},"W":[],"X":[],"H":[],"L":{},"C":{"A":1366.0,"B":768.0,"C":"D"},"D":{"D":0.0,"F":false,"J":false,"G":false,"H":false},"r":[],"E":[{"A?":"O","A":0.0,"B":0.0,"D":1366.0,"C":768.0,"E":0.0,"F":0.0,"BD":[],"BE":[],"BA":[],"BB":[],"Q":false,"S":false,"P":[],"5":{},"T":{},"W":{},"a":"_website-element-widget?version=v2&pageIndex=1&elementIndex=0&elementType=C&locale=th-TH","b":1366.0,"c":768.0}],"I":[]}],"u":[],"L":{}},{"A?":"j","Z":{"A?":"A","A":"TAGcbLa0hys","B":1},"a":"PBHvRjSMK6jbrVNH","B":"บันทึกการทำบุญ","R":false,"S":false,"U":false,"Q":{},"v":"B","t":[{"A?":"i","a":"PBQsMqscVVQrQxh5","R":false,"S":false,"U":false,"Q":{},"W":[],"X":[],"H":[],"L":{},"C":{"A":1366.0,"B":768.0,"C":"D"},"D":{"C":"#ffffff","D":0.0,"F":false,"J":false,"G":false,"H":false},"r":[],"E":[{"A?":"O","A":0.0,"B":0.0,"D":1366.0,"C":768.0,"E":0.0,"F":0.0,"BD":[],"BE":[],"BA":[],"BB":[],"Q":false,"S":false,"P":[],"5":{},"T":{},"W":{},"a":"_website-element-widget?version=v2&pageIndex=2&elementIndex=0&elementType=C&locale=th-TH","b":1366.0,"c":768.0}],"I":[]}],"u":[],"L":{}},{"A?":"j","Z":{"A?":"A","A":"TAGcbLa0hys","B":1},"a":"PBqp92YgXWTTDlPM","B":"ค้นหาใบอนุโมทนาบัตร","R":false,"S":false,"U":false,"Q":{},"v":"B","t":[{"A?":"i","a":"PBp1xjgxgZNrVy88","R":false,"S":false,"U":false,"Q":{},"W":[],"X":[],"H":[],"L":{},"C":{"A":1366.0,"B":768.0,"C":"D"},"D":{"C":"#ffffff","D":0.0,"F":false,"J":false,"G":false,"H":false},"r":[],"E":[{"A?":"O","A":0.0,"B":0.0,"D":1366.0,"C":768.0,"E":0.0,"F":0.0,"BD":[],"BE":[],"BA":[],"BB":[],"Q":false,"S":false,"P":[],"5":{},"T":{},"W":{},"a":"_website-element-widget?version=v2&pageIndex=3&elementIndex=0&elementType=C&locale=th-TH","b":1366.0,"c":768.0}],"I":[]}],"u":[],"L":{}},{"A?":"j","Z":{"A?":"A","A":"TAGcbLa0hys","B":1},"a":"PBwb6P52dz1R8wdf","B":"HOME","R":true,"S":false,"U":false,"Q":{},"v":"B","t":[{"A?":"i","a":"PB4jm29DdztlRThh","R":false,"S":false,"U":false,"Q":{},"W":[],"X":[],"H":[],"L":{},"C":{"A":1366.0,"B":768.0,"C":"D"},"D":{"C":"#ffffff","D":0.0,"F":false,"J":false,"G":false,"H":false},"r":[],"E":[{"A?":"O","A":0.0,"B":0.0,"D":1366.0,"C":768.0,"E":0.0,"F":0.0,"BD":[],"BE":[],"BA":[],"BB":[],"Q":false,"S":false,"P":[],"5":{},"T":{},"W":{},"a":"_website-element-widget?version=v2&pageIndex=4&elementIndex=0&elementType=C&locale=th-TH","b":1366.0,"c":768.0}],"I":[]}],"u":[],"L":{}},{"A?":"j","Z":{"A?":"A","A":"TAGcbLa0hys","B":1},"a":"PBbvYXCXbmBkxJkB","B":"ระบบสร้าง ค้นหา และดาวน์โหลดใบอนุโมทนาบัตรออนไลน์","R":false,"S":false,"U":false,"Q":{},"v":"B","t":[{"A?":"i","a":"PB1jsxbhyybq8vGW","R":false,"S":false,"U":false,"Q":{},"W":[],"X":[],"H":[],"L":{},"C":{"A":1366.0,"B":768.0,"C":"D"},"D":{"C":"#ffffff","D":0.0,"F":false,"J":false,"G":false,"H":false},"r":[],"E":[{"A?":"O","A":0.0,"B":0.0,"D":1366.0,"C":768.0,"E":0.0,"F":0.0,"BD":[],"BE":[],"BA":[],"BB":[],"Q":false,"S":false,"P":[],"5":{},"T":{},"W":{},"a":"_website-element-widget?version=v2&pageIndex=5&elementIndex=0&elementType=C&locale=th-TH","b":1366.0,"c":768.0}],"I":[]}],"u":[],"L":{}},{"A?":"j","Z":{"A?":"A","A":"TAGcbLa0hys","B":1},"a":"PB73D3ZSXNZX3Tpv","B":"ระบบจัดการใบอนุโมทนาบัตรออนไลน์","R":false,"S":false,"U":false,"Q":{},"v":"B","t":[{"A?":"i","a":"PBF16hQpdmZNNDyp","R":false,"S":false,"U":false,"Q":{},"W":[],"X":[],"H":[],"L":{},"C":{"A":1366.0,"B":768.0,"C":"D"},"D":{"C":"#ffffff","D":0.0,"F":false,"J":false,"G":false,"H":false},"r":[],"E":[{"A?":"O","A":0.0,"B":0.0,"D":1366.0,"C":768.0,"E":0.0,"F":0.0,"BD":[],"BE":[],"BA":[],"BB":[],"Q":false,"S":false,"P":[],"5":{},"T":{},"W":{},"a":"_website-element-widget?version=v2&pageIndex=6&elementIndex=0&elementType=C&locale=th-TH","b":1366.0,"c":768.0}],"I":[]}],"u":[],"L":{}},{"A?":"j","Z":{"A?":"A","A":"TAGcbLa0hys","B":1},"a":"PBV7x6zqVT1gzNCl","R":true,"S":false,"U":false,"Q":{},"v":"B","t":[{"A?":"i","a":"PBQnkNwl34lfNZvX","R":false,"S":false,"U":false,"Q":{},"W":[],"X":[],"H":[],"L":{},"C":{"A":1366.0,"B":768.0,"C":"D"},"D":{"C":"#ffffff","D":0.0,"F":false,"J":false,"G":false,"H":false},"r":[],"E":[{"A?":"O","A":0.0,"B":131.03335294145404,"D":1126.4000000000003,"C":768.0000000000001,"E":0.0,"F":0.0,"BD":[],"BE":[],"BA":[],"BB":[],"Q":false,"S":false,"P":[],"5":{},"T":{},"W":{},"_":"LBV4ptgC2wcZyrX2","a":"https://docs.google.com/spreadsheets/d/1MvTP8kitrhRqfOxVUkImHbxGTIuVXT4ajpsR_QB0nfc/edit?gid=0#gid=0","b":660.0,"c":450.0}],"I":[]}],"u":[],"L":{}}],"I":[]},"Z":{"A?":"E","K":{"A":"MAGzZTqQ0Qw","B":1},"M":"th-TH","e":false,"f":{"B":"#ffffff","C":"#304254"},"g":[{"A?":"A","K":"PBRhrngHZ1gKkLZk","L":"","O":"บันทึกข้อมูลทำบุญที่วัดวังตะแบกโภคาราม","e":{"A":true}},{"A?":"A","K":"PB02GxKkQPg511YT","L":"homepage","O":"วัดวังตะแบกโภคาราม","M":"","e":{"A":true}},{"A?":"A","K":"PBHvRjSMK6jbrVNH","L":"boonpatai","O":"บันทึกการทำบุญ","M":"บันทึกการทำบุญ V.40","e":{"A":true}},{"A?":"A","K":"PBqp92YgXWTTDlPM","L":"certificate","O":"ค้นหาใบอนุโมทนาบัตร","M":"ระบบค้นหาและดาวน์โหลดใบอนุโมทนาบัตรแบบออนไลน์ วัดวังตะแบกโภคาราม","e":{"A":true}},{"A?":"A","K":"PBbvYXCXbmBkxJkB","L":"cer","O":"ระบบสร้าง ค้นหา และดาวน์โหลดใบอนุโมทนาบัตรออนไลน์","M":"ระบบสร้าง ค้นหา และดาวน์โหลดใบอนุโมทนาบัตรออนไลน์ >>> วัดวังตะแบกโภคาราม","e":{"A":true}},{"A?":"A","K":"PB73D3ZSXNZX3Tpv","L":"coa","O":"ระบบจัดการใบอนุโมทนาบัตรออนไลน์","M":"","e":{"A":true}}]},"I":{"A":[{"A":"YACgEZ1cb1Q","B":0,"C":"Arimo","D":[{"style":"BOLD","files":[{"url":"_assets/fonts/98c4d2c0223fc8474641c77f923528e9.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":194064},{"url":"_assets/fonts/0bb563f2f60ffd4e62b64cb021c33776.otf","format":"OTF","unicodeRanges":[],"sizeBytes":438516},{"url":"_assets/fonts/9fd726aeae98b22824f0dc8947036e77.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":234696}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-771,"yMax":2116},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":32}}},{"style":"ITALICS","files":[{"url":"_assets/fonts/79d14bb61301a10c73c6cb293c29b309.otf","format":"OTF","unicodeRanges":[],"sizeBytes":440740},{"url":"_assets/fonts/ac9b8a560f98d1757a4565a2419d33c3.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":240632},{"url":"_assets/fonts/d257a7100844bc3f98c9021168b6249e.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":201132}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-621,"yMax":2077},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-425,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":1}}},{"style":"BOLD_ITALICS","files":[{"url":"_assets/fonts/1060345c54d396e76d73f1da7ee200bd.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":203232},{"url":"_assets/fonts/7fc2786f9023d4d812357cb787e9ad4b.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":237660},{"url":"_assets/fonts/4de29305db46625343735e840e3d27aa.otf","format":"OTF","unicodeRanges":[],"sizeBytes":435028}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-771,"yMax":2109},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":33}}},{"style":"REGULAR","files":[{"url":"_assets/fonts/daee28464eba92254cb149feea6599e3.otf","format":"OTF","unicodeRanges":[],"sizeBytes":436180},{"url":"_assets/fonts/4ff8a742aa834e35f10ead140b735c45.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":234380},{"url":"_assets/fonts/f8f199f09526f79e87644ed227e0f651.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":194188}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-621,"yMax":2007},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":64}}}],"E":false}],"B":[],"C":[],"D":[],"E":[{"A":"https://www.canva-hosted-embed.com/codelet/bnrxcahdhbrqgqc3","Q":false,"B":"Canva","D":1760425698611,"E":"\x3ciframe src=\\"https://bnrxcahdhbrqgqc3.canva-hosted-embed.com/codelet/AAEAEGJucnhjYWhkaGJycWdxYzMAAAAAAZnmssEzslbpUo1ZoAJVtlH4HPBoKRG1_rEKZE9JNZKVIv9Yh74/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bnq3m5rw8mp8as1p","Q":false,"B":"Canva","D":1760425698611,"E":"\x3ciframe src=\\"https://bnq3m5rw8mp8as1p.canva-hosted-embed.com/codelet/AAEAEGJucTNtNXJ3OG1wOGFzMXAAAAAAAZnmssEzCWNCKqx96onHvhfFWDBBI8Ax2m6kfpDCjs_GrT6j9yM/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bqnsgr8dw7269ycd","Q":false,"B":"Canva","D":1760425698612,"E":"\x3ciframe src=\\"https://bqnsgr8dw7269ycd.canva-hosted-embed.com/codelet/AAEAEGJxbnNncjhkdzcyNjl5Y2QAAAAAAZnmssE0mpwE-6FoqLsm7rdVHyGNUIqVcKrGeU5j2MABiMux4rk/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://docs.google.com/spreadsheets/d/1MvTP8kitrhRqfOxVUkImHbxGTIuVXT4ajpsR_QB0nfc/edit?gid=0#gid=0","Q":false,"B":"Google Docs","D":1750156052042,"E":"\x3ciframe src=\\"https://canva-embed.com/api/iframe?url&#61;https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1MvTP8kitrhRqfOxVUkImHbxGTIuVXT4ajpsR_QB0nfc%2Fedit%3Fgid%3D0&amp;key&#61;462812a26b593f2dbfbfcbb14f6d699a\\" style=\\"width:100%;height:100%;border:0\\" allowfullscreen=\\"allowfullscreen\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\">\x3c/iframe>","F":1126,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bqk9w9ar27ymqsfa","Q":false,"B":"Canva","D":1760425698612,"E":"\x3ciframe src=\\"https://bqk9w9ar27ymqsfa.canva-hosted-embed.com/codelet/AAEAEGJxazl3OWFyMjd5bXFzZmEAAAAAAZnmssE0wMBgcDhzXzNTL1D5lKEuJ47ti_QiMayjyBZwy0lt9V8/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bqd4eqjm9ahn33m2","Q":false,"B":"Canva","D":1760425698612,"E":"\x3ciframe src=\\"https://bqd4eqjm9ahn33m2.canva-hosted-embed.com/codelet/AAEAEGJxZDRlcWptOWFobjMzbTIAAAAAAZnmssE0hOKaGIwCkQKpAdjFb2Do3Tqzrk9KGhjxHGI-zEMEO3o/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bqk9338p1mqt08xh","Q":false,"B":"Canva","D":1760425698611,"E":"\x3ciframe src=\\"https://bqk9338p1mqt08xh.canva-hosted-embed.com/codelet/AAEAEGJxazkzMzhwMW1xdDA4eGgAAAAAAZnmssEzPZR3dZ_J8xPe0Y2ycI9yOklmW1PAC0m2q3VKSQIJtJI/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=0&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=0&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=1&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=1&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=2&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=2&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=3&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=3&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=4&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=4&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=5&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=5&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=6&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=6&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768}],"F":[],"G":[]},"B":[{"A":"YACgEZ1cb1Q","B":0,"C":"Arimo","D":[{"style":"BOLD","files":[{"url":"_assets/fonts/98c4d2c0223fc8474641c77f923528e9.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":194064},{"url":"_assets/fonts/0bb563f2f60ffd4e62b64cb021c33776.otf","format":"OTF","unicodeRanges":[],"sizeBytes":438516},{"url":"_assets/fonts/9fd726aeae98b22824f0dc8947036e77.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":234696}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-771,"yMax":2116},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":32}}},{"style":"ITALICS","files":[{"url":"_assets/fonts/79d14bb61301a10c73c6cb293c29b309.otf","format":"OTF","unicodeRanges":[],"sizeBytes":440740},{"url":"_assets/fonts/ac9b8a560f98d1757a4565a2419d33c3.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":240632},{"url":"_assets/fonts/d257a7100844bc3f98c9021168b6249e.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":201132}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-621,"yMax":2077},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-425,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":1}}},{"style":"BOLD_ITALICS","files":[{"url":"_assets/fonts/1060345c54d396e76d73f1da7ee200bd.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":203232},{"url":"_assets/fonts/7fc2786f9023d4d812357cb787e9ad4b.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":237660},{"url":"_assets/fonts/4de29305db46625343735e840e3d27aa.otf","format":"OTF","unicodeRanges":[],"sizeBytes":435028}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-771,"yMax":2109},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":33}}},{"style":"REGULAR","files":[{"url":"_assets/fonts/daee28464eba92254cb149feea6599e3.otf","format":"OTF","unicodeRanges":[],"sizeBytes":436180},{"url":"_assets/fonts/4ff8a742aa834e35f10ead140b735c45.woff","format":"WOFF","unicodeRanges":[],"sizeBytes":234380},{"url":"_assets/fonts/f8f199f09526f79e87644ed227e0f651.woff2","format":"WOFF2","unicodeRanges":[],"sizeBytes":194188}],"subsettedFiles":[],"scriptSubsetFiles":[],"metadata":{"head":{"unitsPerEm":2048,"yMin":-621,"yMax":2007},"hhea":{"ascender":1854,"descender":-434,"lineGap":67},"os2":{"sTypoAscender":1491,"sTypoDescender":-431,"sTypoLineGap":307,"usWinAscent":1854,"usWinDescent":434,"fsSelection":64}}}],"E":false}],"E":[],"F":[],"G":[],"H":[{"A":"https://www.canva-hosted-embed.com/codelet/bnrxcahdhbrqgqc3","Q":false,"B":"Canva","D":1760425698611,"E":"\x3ciframe src=\\"https://bnrxcahdhbrqgqc3.canva-hosted-embed.com/codelet/AAEAEGJucnhjYWhkaGJycWdxYzMAAAAAAZnmssEzslbpUo1ZoAJVtlH4HPBoKRG1_rEKZE9JNZKVIv9Yh74/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bnq3m5rw8mp8as1p","Q":false,"B":"Canva","D":1760425698611,"E":"\x3ciframe src=\\"https://bnq3m5rw8mp8as1p.canva-hosted-embed.com/codelet/AAEAEGJucTNtNXJ3OG1wOGFzMXAAAAAAAZnmssEzCWNCKqx96onHvhfFWDBBI8Ax2m6kfpDCjs_GrT6j9yM/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bqnsgr8dw7269ycd","Q":false,"B":"Canva","D":1760425698612,"E":"\x3ciframe src=\\"https://bqnsgr8dw7269ycd.canva-hosted-embed.com/codelet/AAEAEGJxbnNncjhkdzcyNjl5Y2QAAAAAAZnmssE0mpwE-6FoqLsm7rdVHyGNUIqVcKrGeU5j2MABiMux4rk/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://docs.google.com/spreadsheets/d/1MvTP8kitrhRqfOxVUkImHbxGTIuVXT4ajpsR_QB0nfc/edit?gid=0#gid=0","Q":false,"B":"Google Docs","D":1750156052042,"E":"\x3ciframe src=\\"https://canva-embed.com/api/iframe?url&#61;https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1MvTP8kitrhRqfOxVUkImHbxGTIuVXT4ajpsR_QB0nfc%2Fedit%3Fgid%3D0&amp;key&#61;462812a26b593f2dbfbfcbb14f6d699a\\" style=\\"width:100%;height:100%;border:0\\" allowfullscreen=\\"allowfullscreen\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\">\x3c/iframe>","F":1126,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bqk9w9ar27ymqsfa","Q":false,"B":"Canva","D":1760425698612,"E":"\x3ciframe src=\\"https://bqk9w9ar27ymqsfa.canva-hosted-embed.com/codelet/AAEAEGJxazl3OWFyMjd5bXFzZmEAAAAAAZnmssE0wMBgcDhzXzNTL1D5lKEuJ47ti_QiMayjyBZwy0lt9V8/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bqd4eqjm9ahn33m2","Q":false,"B":"Canva","D":1760425698612,"E":"\x3ciframe src=\\"https://bqd4eqjm9ahn33m2.canva-hosted-embed.com/codelet/AAEAEGJxZDRlcWptOWFobjMzbTIAAAAAAZnmssE0hOKaGIwCkQKpAdjFb2Do3Tqzrk9KGhjxHGI-zEMEO3o/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"https://www.canva-hosted-embed.com/codelet/bqk9338p1mqt08xh","Q":false,"B":"Canva","D":1760425698611,"E":"\x3ciframe src=\\"https://bqk9338p1mqt08xh.canva-hosted-embed.com/codelet/AAEAEGJxazkzMzhwMW1xdDA4eGgAAAAAAZnmssEzPZR3dZ_J8xPe0Y2ycI9yOklmW1PAC0m2q3VKSQIJtJI/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=0&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=0&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=1&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=1&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=2&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=2&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=3&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=3&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=4&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=4&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=5&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=5&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768},{"A":"_website-element-widget?version=v2&pageIndex=6&elementIndex=0&elementType=C&locale=th-TH","Q":false,"B":"Canva","D":1760425698732,"E":"\x3ciframe src=\\"_website-element-widget?version=v2&pageIndex=6&elementIndex=0&elementType=C&locale=th-TH\\" width=\\"1366\\" height=\\"768\\" frameborder=\\"0\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms allow-popups-to-escape-sandbox\\" style=\\"width:100%;height:100%;border:0\\">\x3c/iframe>","F":1366,"G":768}],"S":[],"K":{"B":"#ffffff","C":"#304254"},"Q":{"A":false,"B":true,"M":true},"R":false,"T":true,"W":true,"U":true,"V":true},"ui":{"N":false,"A":true,"B":"A","C":false,"D":false,"K":"A","I":false,"J":false,"P":false}}'); window['flags'] = JSON.parse('{"31382143":true,"3c00bce1":true,"2ba72277":true,"b449fd3a":true,"3b7f2549":true,"3920a6f5":true,"f576b13d":true,"978ce15d":150000.0,"55dbebc8":true,"c79472f0":true,"61af18e7":true,"81ffad74":true,"2f47199a":true,"aa193e99":true,"b6e3de35":true}'); window['cmsg'] = window['cmsg'] || { locale: "th-TH", strings: {} };})();</script><script crossorigin="anonymous" src="_assets/e67d78963e749d2a.runtime.js" defer integrity="sha512-YaW+QLF5SrwA9jIvL3qCtz+M84bXymZZVb5R3+xqXTn85Xg4GLOYzcWxWgZEty1tpjhs2WqWFEJOPL4ZgL2H7A==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"></script><script crossorigin="anonymous" src="_assets/cf68917d6890325b.s4le6a.vendor.js" defer integrity="sha512-SJ+tDm3qg75UuGAMkHJ7/4YYCNG88SULa7n9TwaOICxd4LIJ2mUD5fX35I7erTvo9zZXNzRw82f/bOhaPd0sgg==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"></script><script crossorigin="anonymous" src="_assets/bcd85ba81e774b9a.vendor.js" defer integrity="sha512-urdVzaiFhYXlZts++rOJQLg0DYqJh6GTeXnpJLmupBjeTc2HGScvRzBk4MmjdQRZWtfTEQzXG5WvhxL/Pqv9yQ==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"></script><script crossorigin="anonymous" src="_assets/3812dcd77c397e59.strings.js" integrity="sha512-jm9sRXoFYVrn04EljtVm7hbOVSjzafCAfNduZ9au0nP+xmZbXW+e32Vu/yorPFrMGG8Oa3/4JOwFmE8a9ibTRw==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"></script><script crossorigin="anonymous" src="_assets/8d68b490c38f9500.th-TH.js" integrity="sha512-YpGPreK0MwZW3UqUiNgJCA0Vl1VbNrWFbkCa8fDlTuUiEP8GgWQ7xI2h04Ze/5T0wZ2mNviWuDdKOVj/FaMv4A==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"></script><script crossorigin="anonymous" src="_assets/b1a78e375ddd617b.js" defer integrity="sha512-ffGuSTvD7lEcRMK/uXw+GGOZGHUpk/mL1F1AfX8us11aJQO+iY1NnSr6qW822IjW3/LfxOWG84a4FYHgyX1R8A==" nonce="09d8060d-52d8-4807-bb0f-838061b651c4"></script></body></html>
+        function showRegisterPopup() {
+            document.getElementById('registerPopup').classList.remove('hidden');
+            document.getElementById('registerPopup').classList.add('flex');
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).classList.add('hidden');
+            document.getElementById(popupId).classList.remove('flex');
+        }
+
+        // Close popup when clicking outside
+        document.getElementById('loginPopup').addEventListener('click', function(e) {
+            if (e.target === this) closePopup('loginPopup');
+        });
+
+        document.getElementById('registerPopup').addEventListener('click', function(e) {
+            if (e.target === this) closePopup('registerPopup');
+        });
+
+        // Login Form Handler
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorDiv = document.getElementById('loginError');
+            
+            // Show loading
+            Swal.fire({
+                title: 'กำลังตรวจสอบข้อมูล...',
+                allowOutsideClick: false,
+                background: '#1a1a2e',
+                color: '#ffd700',
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Try multiple methods to connect
+            const baseUrl = 'https://script.google.com/macros/s/AKfycbycb_WXPry-r0xKfVFKmggRR9zdD9xKzrrEiDGGCBMkTKk91fL_ryqtid7dSQWTVAngfg/exec';
+            
+            const methods = [
+                // Method 1: GET with query parameters
+                {
+                    url: `${baseUrl}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+                    options: { method: 'GET', mode: 'no-cors' }
+                },
+                // Method 2: POST with form data
+                {
+                    url: baseUrl,
+                    options: {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: `action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+                    }
+                },
+                // Method 3: JSONP-like approach using script tag
+                {
+                    url: `${baseUrl}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&callback=handleLoginResponse`,
+                    options: { method: 'GET', mode: 'no-cors' }
+                }
+            ];
+
+            let success = false;
+            
+            for (let i = 0; i < methods.length && !success; i++) {
+                try {
+                    console.log(`Trying method ${i + 1}...`);
+                    
+                    if (i === 2) {
+                        // JSONP approach
+                        await new Promise((resolve, reject) => {
+                            window.handleLoginResponse = function(result) {
+                                Swal.close();
+                                if (result.success) {
+                                    success = true;
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'เข้าสู่ระบบสำเร็จ!',
+                                        text: 'กำลังนำคุณเข้าสู่หน้าหลัก...',
+                                        timer: 2000,
+                                        showConfirmButton: false,
+                                        background: '#1a1a2e',
+                                        color: '#ffd700'
+                                    }).then(() => {
+                                        window.location.href = 'https://boond.my.canva.site/homepage';
+                                    });
+                                } else {
+                                    reject(new Error('Invalid credentials'));
+                                }
+                                resolve();
+                            };
+                            
+                            const script = document.createElement('script');
+                            script.src = methods[i].url;
+                            script.onerror = () => reject(new Error('Script load failed'));
+                            document.head.appendChild(script);
+                            
+                            setTimeout(() => {
+                                document.head.removeChild(script);
+                                if (!success) reject(new Error('Timeout'));
+                            }, 10000);
+                        });
+                    } else {
+                        const response = await fetch(methods[i].url, methods[i].options);
+                        
+                        // For no-cors mode, we can't read the response
+                        if (methods[i].options.mode === 'no-cors') {
+                            // Assume success if no error thrown
+                            Swal.close();
+                            success = true;
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'เข้าสู่ระบบสำเร็จ!',
+                                text: 'กำลังนำคุณเข้าสู่หน้าหลัก...',
+                                timer: 2000,
+                                showConfirmButton: false,
+                                background: '#1a1a2e',
+                                color: '#ffd700'
+                            }).then(() => {
+                                window.location.href = 'https://boond.my.canva.site/homepage';
+                            });
+                        } else {
+                            const result = await response.json();
+                            Swal.close();
+                            
+                            if (result.success) {
+                                success = true;
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'เข้าสู่ระบบสำเร็จ!',
+                                    text: 'กำลังนำคุณเข้าสู่หน้าหลัก...',
+                                    timer: 2000,
+                                    showConfirmButton: false,
+                                    background: '#1a1a2e',
+                                    color: '#ffd700'
+                                }).then(() => {
+                                    window.location.href = 'https://boond.my.canva.site/homepage';
+                                });
+                            } else {
+                                throw new Error('Invalid credentials');
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.log(`Method ${i + 1} failed:`, error.message);
+                    if (i === methods.length - 1) {
+                        // All methods failed
+                        Swal.close();
+                        
+                        // Show demo mode option
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'ไม่สามารถเชื่อมต่อได้',
+                            text: 'ระบบไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ในขณะนี้',
+                            showCancelButton: true,
+                            confirmButtonText: 'ใช้โหมดทดสอบ',
+                            cancelButtonText: 'ลองใหม่',
+                            footer: 'โหมดทดสอบจะให้คุณเข้าใช้งานได้โดยไม่ต้องตรวจสอบข้อมูล',
+                            background: '#1a1a2e',
+                            color: '#ffd700'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Demo mode - allow access without verification
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'โหมดทดสอบ',
+                                    text: 'กำลังเข้าสู่ระบบในโหมดทดสอบ...',
+                                    timer: 1500,
+                                    showConfirmButton: false,
+                                    background: '#1a1a2e',
+                                    color: '#ffd700'
+                                }).then(() => {
+                                    window.location.href = 'https://boond.my.canva.site/homepage';
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        // Special Password Verification
+        document.getElementById('verifySpecialBtn').addEventListener('click', function() {
+            const specialPassword = document.getElementById('specialPassword').value.trim();
+            const errorDiv = document.getElementById('registerError');
+            
+            if (specialPassword === 'nice') {
+                // Show success and reveal user fields
+                Swal.fire({
+                    icon: 'success',
+                    title: 'รหัสผ่านถูกต้อง!',
+                    text: 'กรุณากรอกข้อมูลเพื่อสมัครสมาชิก',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    background: '#1a1a2e',
+                    color: '#ffd700'
+                });
+                
+                document.getElementById('userFields').classList.remove('hidden');
+                document.getElementById('verifySpecialBtn').classList.add('hidden');
+                document.getElementById('registerSubmitBtn').classList.remove('hidden');
+                document.getElementById('specialPassword').disabled = true;
+                document.getElementById('specialPassword').classList.add('bg-white/5');
+                errorDiv.classList.add('hidden');
+            } else {
+                // Show error
+                errorDiv.textContent = 'รหัสผ่านพิเศษไม่ถูกต้อง';
+                errorDiv.classList.remove('hidden');
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'รหัสผ่านไม่ถูกต้อง',
+                    text: 'กรุณาใส่รหัสผ่านพิเศษที่ถูกต้อง',
+                    background: '#1a1a2e',
+                    color: '#ffd700'
+                });
+            }
+        });
+
+        // Allow Enter key to verify special password
+        document.getElementById('specialPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('verifySpecialBtn').click();
+            }
+        });
+
+        // Register Form Handler
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('registerUsername').value.trim();
+            const password = document.getElementById('registerPassword').value.trim();
+            
+            // Show loading
+            Swal.fire({
+                title: 'กำลังสมัครสมาชิก...',
+                text: 'กรุณารอสักครู่',
+                allowOutsideClick: false,
+                background: '#1a1a2e',
+                color: '#ffd700',
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Try multiple methods to connect
+            const baseUrl = 'https://script.google.com/macros/s/AKfycbycb_WXPry-r0xKfVFKmggRR9zdD9xKzrrEiDGGCBMkTKk91fL_ryqtid7dSQWTVAngfg/exec';
+            
+            const methods = [
+                // Method 1: GET with query parameters
+                {
+                    url: `${baseUrl}?action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+                    options: { method: 'GET', mode: 'no-cors' }
+                },
+                // Method 2: POST with form data
+                {
+                    url: baseUrl,
+                    options: {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: `action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+                    }
+                }
+            ];
+
+            let success = false;
+            
+            for (let i = 0; i < methods.length && !success; i++) {
+                try {
+                    console.log(`Trying register method ${i + 1}...`);
+                    
+                    const response = await fetch(methods[i].url, methods[i].options);
+                    
+                    // For no-cors mode, we can't read the response
+                    if (methods[i].options.mode === 'no-cors') {
+                        // Assume success if no error thrown
+                        Swal.close();
+                        success = true;
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'สมัครสมาชิกสำเร็จ!',
+                            text: 'กรุณาลงชื่อเข้าใช้',
+                            confirmButtonText: 'ตกลง',
+                            background: '#1a1a2e',
+                            color: '#ffd700'
+                        }).then(() => {
+                            closePopup('registerPopup');
+                            document.getElementById('registerForm').reset();
+                            showLoginPopup();
+                        });
+                    } else {
+                        const result = await response.json();
+                        Swal.close();
+                        
+                        if (result.success) {
+                            success = true;
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'สมัครสมาชิกสำเร็จ!',
+                                text: 'กรุณาลงชื่อเข้าใช้',
+                                confirmButtonText: 'ตกลง',
+                                background: '#1a1a2e',
+                                color: '#ffd700'
+                            }).then(() => {
+                                closePopup('registerPopup');
+                                document.getElementById('registerForm').reset();
+                                showLoginPopup();
+                            });
+                        } else {
+                            throw new Error(result.message || 'Registration failed');
+                        }
+                    }
+                } catch (error) {
+                    console.log(`Register method ${i + 1} failed:`, error.message);
+                    if (i === methods.length - 1) {
+                        // All methods failed
+                        Swal.close();
+                        
+                        // Show demo mode option
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'ไม่สามารถสมัครสมาชิกได้',
+                            text: 'ระบบไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ในขณะนี้',
+                            showCancelButton: true,
+                            confirmButtonText: 'ข้ามไปเข้าสู่ระบบ',
+                            cancelButtonText: 'ลองใหม่',
+                            footer: 'คุณสามารถข้ามการสมัครและเข้าใช้โหมดทดสอบได้',
+                            background: '#1a1a2e',
+                            color: '#ffd700'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                closePopup('registerPopup');
+                                document.getElementById('registerForm').reset();
+                                showLoginPopup();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99aa94383379a183',t:'MTc2MjQ5NDg5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
